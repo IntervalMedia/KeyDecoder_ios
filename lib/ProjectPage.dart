@@ -318,6 +318,7 @@ class ProjectPageState extends State<ProjectPage> {
 	}
 
 	Future<bool> _onBackPressed() async {
+		await portraitModeOnly();
 		if(_updated) {
 			final dao = Provider.of<ProjectsDao>(context);
 			await dao.updateProject(project);
@@ -329,7 +330,12 @@ class ProjectPageState extends State<ProjectPage> {
 
 	@override
 	Widget build(BuildContext context) {
-		return WillPopScope(
+		return PopScope(
+			canPop: false,
+			onPopInvokedWithResult: (didPop, result) {
+				if (!didPop)
+					_onBackPressed();
+			},
 			child: Scaffold(
 				appBar: AppBar(
 					title: Text(widget.title),
@@ -341,8 +347,7 @@ class ProjectPageState extends State<ProjectPage> {
 					]
 				),
 				resizeToAvoidBottomInset: false,
-			), 
-			onWillPop: _onBackPressed,
+			),
 		);
 	}
 }
@@ -562,9 +567,7 @@ class ProjectFloatingActionButtonState extends State<ProjectFloatingActionButton
 
 	@override
 	Widget build(BuildContext context) {
-		return WillPopScope(
-      onWillPop: () => portraitModeOnly().then((_) => true),
-      child: Stack(
+		return Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Positioned(
@@ -588,7 +591,6 @@ class ProjectFloatingActionButtonState extends State<ProjectFloatingActionButton
             ),
           )
         ],
-      ),
-		);
+      );
 	}
 }

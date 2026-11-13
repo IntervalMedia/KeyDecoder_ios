@@ -85,8 +85,11 @@ class MenuPageState extends State<MenuPage> {
 				prefs.setBool('tutorial_displayed', true);
 			}
 		});
-		return WillPopScope(
-			onWillPop: _onWillPop,
+		return PopScope(
+			onPopInvokedWithResult: (didPop, result) {
+				if (didPop)
+					_onWillPop();
+			},
 			child: Scaffold(
 				appBar: AppBar(
 					title: Text(widget.title),
@@ -304,6 +307,8 @@ Additionnaly, the need for an ISO sized card as a dimensionnal reference prevent
 
 	void _showAbout() {
 		double txtscale = 0.8;
+		final textScaler = TextScaler.linear(txtscale);
+		final smallTextScaler = TextScaler.linear(txtscale / 4);
 		showAboutDialog(
 			context: context,
 			applicationIcon: Image(
@@ -316,8 +321,8 @@ Additionnaly, the need for an ISO sized card as a dimensionnal reference prevent
 			applicationVersion: "v1.1.0",
 			applicationLegalese: "© AT Security SAS",
 			children: [
-				Text("\nApp developped by :", textScaleFactor: txtscale),
-				Text("BEASSE Maxime", textAlign: TextAlign.center, textScaleFactor: txtscale),
+				Text("\nApp developped by :", textScaler: textScaler),
+				Text("BEASSE Maxime", textAlign: TextAlign.center, textScaler: textScaler),
 				Center(
 					child: InkWell(
 						onTap: () {
@@ -327,11 +332,11 @@ Additionnaly, the need for an ISO sized card as a dimensionnal reference prevent
                 print(e);
               }
 						},
-						child: Text("@maxime_beasse", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline,), textScaleFactor: txtscale)
+						child: Text("@maxime_beasse", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline,), textScaler: textScaler)
 					),
 				),
-				Text("\n", textScaleFactor: txtscale/4,),
-				Text("CLEMENT Quentin", textAlign: TextAlign.center, textScaleFactor: txtscale,),
+				Text("\n", textScaler: smallTextScaler,),
+				Text("CLEMENT Quentin", textAlign: TextAlign.center, textScaler: textScaler,),
 				Center(
 					child: InkWell(
 						onTap: () {
@@ -341,10 +346,10 @@ Additionnaly, the need for an ISO sized card as a dimensionnal reference prevent
                 print(e);
               }
 						},
-						child: Text("@0x2f2f", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline,), textScaleFactor: txtscale),
+						child: Text("@0x2f2f", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline,), textScaler: textScaler),
 					),
 				),
-				Text("\n\n", textScaleFactor: txtscale/4),
+				Text("\n\n", textScaler: smallTextScaler),
 				Align(
           alignment: Alignment.centerLeft,
           child: InkWell(
@@ -355,10 +360,10 @@ Additionnaly, the need for an ISO sized card as a dimensionnal reference prevent
                 print(e);
               }
             },
-            child: Text("GitHub Repository", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline,), textScaleFactor: txtscale),
+            child: Text("GitHub Repository", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline,), textScaler: textScaler),
           ),
         ),
-				Text("\n\nIn partnership with FrenchKey ", textScaleFactor: txtscale),
+				Text("\n\nIn partnership with FrenchKey ", textScaler: textScaler),
 				Center(
 					child: InkWell(
 						onTap: () {
@@ -368,7 +373,7 @@ Additionnaly, the need for an ISO sized card as a dimensionnal reference prevent
                 print(e);
               }
 						},
-						child: Text("@FrenchKey_fr", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline,), textScaleFactor: txtscale),
+						child: Text("@FrenchKey_fr", style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline,), textScaler: textScaler),
 					),
 				),
 			]

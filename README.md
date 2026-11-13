@@ -13,7 +13,7 @@ Developped by [*Maxime BEASSE*](https://twitter.com/maxime_beasse) and [*Quentin
 
 In partnership with [FrenchKey](https://intrusion.eu/en/home/) and [CNS](https://www.esiea.fr/expertise-confiance-numerique-securite/) from [ESIEA](https://www.esiea.fr/).
 
-Powered by [Flutter (3.13.6)](https://flutter.dev) and [OpenCV (4.3.0)](https://opencv.org/)
+Powered by [Flutter (3.44.7)](https://flutter.dev) and [OpenCV (4.3.0)](https://opencv.org/)
 
 <p align="center">
  <img src="https://lh3.googleusercontent.com/A_Xf4iP53YZ1-LiREhA-F8Zc60vKMGVieNlORz-UP--VNtGgTxQK03jlxDfWUi2SqHc">
@@ -27,8 +27,7 @@ Powered by [Flutter (3.13.6)](https://flutter.dev) and [OpenCV (4.3.0)](https://
    * [Disclamer](#disclamer)
    * [Installation](#installation)
       * [Build](#build)
-        * [Android](#android)
-        * [IOS](#ios)
+        * [iOS](#ios)
       * [Releases](#releases)
    * [Usage](#usage)
       * [Take Picture](#take-picture)
@@ -65,38 +64,20 @@ If you want to protect yourself from having your keys duplicated without your co
 
 # Installation
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
-      alt="Get it on Google Play"
-      height="70">](https://play.google.com/store/apps/details?id=com.keydecoder)
-
 ## Build
 
-* To install Flutter, it is recommended to use [fvm](https://fvm.app/), a Flutter Version Management tool. But you can also use the official [Flutter installation guide](https://flutter.dev/docs/get-started/install).
-  * The project is built using Flutter `v3.13.6`
+* Install Flutter using [FVM](https://fvm.app/) or the [official Flutter installation guide](https://flutter.dev/docs/get-started/install). The project pins Flutter `3.44.7` in `.fvmrc`.
 
-### Android
+### iOS
 
-* Download [OpenCV-Android-SDK v4.3.0](https://sourceforge.net/projects/opencvlibrary/files/4.3.0/opencv-4.3.0-android-sdk.zip) and extract it to a directory of your choice. (eg. `C:\SDK\OpenCV-android-sdk`)
-* Create the `local.properties` file under `android/`, providing the following settings :
-```sdk.dir=<Android SDK path>
-flutter.sdk=<Flutter SDK path>
-flutter.buildMode=release
-flutter.versionName=1.0.0
-flutter.versionCode=1
-opencv.sdk=<OpenCV Android SDK path>
-```
-* Copy the subdirectories in `C:\...\OpenCV-android-sdk\sdk\native\libs` to the directory `C:\...\keydecoder\android\app\src\main\jniLibs`
-* Build the project using `fvm flutter build apk`
-
-### IOS
-
-* Requires macOS with Xcode and CocoaPods. OpenCV 4.3.0 is pulled in automatically through the `OpenCV` pod and the shared `native_cv/core_cv.cpp` is built by the local `ios/native_cv` pod.
-* Build with `fvm flutter build ios --no-codesign` (or open `ios/Runner.xcworkspace` in Xcode to sign and run on a device). The OpenCV 4.3.0 pod has no Apple-silicon simulator slice, so use a physical device or an x86_64 simulator.
+* Requires iOS 15 or later, macOS with Xcode, and CocoaPods. OpenCV 4.3.0 is pulled in automatically through the `OpenCV2` pod and the shared `native_cv/core_cv.cpp` is built by the local `ios/native_cv` pod. OpenCV 4.3.0 is distributed under the 3-clause BSD license.
+* Use CocoaPods by running `fvm flutter config --no-enable-swift-package-manager`, then run `fvm flutter pub get` and build with `fvm flutter build ios --no-codesign` (or open `ios/Runner.xcworkspace` in Xcode to sign and run on a device). OpenCV 4.3.0 does not provide an Apple-silicon simulator slice, so use a physical device or an x86_64 simulator.
 * CI builds an unsigned release `Runner.app` on every pull request (`.github/workflows/ios.yml`).
+* OpenCV's required 3-clause BSD license is included in [third_party_licenses/OpenCV-4.3.0.txt](./third_party_licenses/OpenCV-4.3.0.txt).
 
 ## Releases
 
-The most recent builds can be found in the [Play Store](https://play.google.com/store).
+No iOS release is currently published.
 
 # Usage
 

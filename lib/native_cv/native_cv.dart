@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:ffi';
-import 'dart:io';
 import 'package:ffi/ffi.dart';
 import 'package:flutter/material.dart';
 
@@ -131,10 +130,6 @@ class HomographyWarp {
 	}
 
 	static DynamicLibrary _getDynamicLibrary() {
-		// Android ships libnative_cv.so; on Apple platforms the native_cv pod is
-		// linked into the app, so its symbols live in the process.
-		return Platform.isAndroid
-			? DynamicLibrary.open("libnative_cv.so")
-			: DynamicLibrary.process();
+		return DynamicLibrary.process();
 	}
 }

@@ -3,12 +3,12 @@ Pod::Spec.new do |s|
   s.version          = '1.0.0'
   s.summary          = 'OpenCV homography warp used by KeyDecoder (called through Dart FFI).'
   s.homepage         = 'https://github.com/IntervalMedia/KeyDecoder'
-  s.license          = { :type => 'MIT' }
+  s.license          = { :type => 'Aladdin Free Public License v9', :file => '../../LICENSE' }
   s.author           = { 'KeyDecoder' => 'noreply@example.com' }
   s.source           = { :path => '.' }
   s.source_files     = 'Classes/**/*.{cpp,h}'
-  s.platform         = :ios, '13.0'
-  s.dependency 'OpenCV', '4.3.0'
+  s.platform         = :ios, '15.0'
+  s.dependency 'OpenCV2', '4.3.0'
   s.libraries        = 'c++'
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',

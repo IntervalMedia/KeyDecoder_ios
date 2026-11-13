@@ -15,10 +15,8 @@ class CropPage extends StatefulWidget {
 
 	CropPage.fromFile(this.imageFile) : imageData = imageFile.readAsBytesSync();
 
-	@required
 	final File imageFile;
 
-	@required
 	final Uint8List imageData;
 
 	static const routeName = '/crop';
@@ -72,7 +70,7 @@ class CropPageState extends State<CropPage> {
 
 		imageSize = Size(image!.width.toDouble(), image.height.toDouble());
 
-		final orientation = (image.exif.imageIfd.hasOrientation) ? image.exif.imageIfd.Orientation : 1;
+		final orientation = image.exif.imageIfd.orientation ?? 1;
 
 		switch (orientation) {
 			case 1:

@@ -30,7 +30,9 @@ class ShapeNotifier extends ChangeNotifier {
 
 			if (element is Crosshair) {
 				if (element.textStyle.fontSize != null)
-					element.textPainter.textScaleFactor /= scaleDelta;
+					element.textPainter.textScaler = TextScaler.linear(
+						element.textPainter.textScaler.scale(1) / scaleDelta,
+					);
 			}
 
 		});
@@ -348,8 +350,14 @@ class EditorBaseState extends State<EditorBase> {
 
 		Size imageSize = _imageSize!;
 
-		return WillPopScope(
-			onWillPop: _onWillPop,
+		return PopScope(
+			canPop: false,
+			onPopInvokedWithResult: (didPop, result) async {
+				if (didPop)
+					return;
+				if (await _onWillPop() && context.mounted)
+					Navigator.of(context).pop();
+			},
 			child: ChangeNotifierProvider<ShapeNotifier>.value(
 				value: widget.shapes!,
 				child: XGestureDetector(

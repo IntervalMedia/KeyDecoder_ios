@@ -264,7 +264,7 @@ class Crosshair extends Shape {
 				text: txt
 			);
 			textPainter = TextPainter(
-				textScaleFactor: textPainter.textScaleFactor,
+				textScaler: textPainter.textScaler,
 				text: textSpan,
 				textAlign: TextAlign.left,
 				textDirection: TextDirection.ltr
@@ -315,7 +315,7 @@ class Crosshair extends Shape {
 		if (measures != null) {
 
 			textPainter = TextPainter(
-				textScaleFactor: textPainter.textScaleFactor,
+				textScaler: textPainter.textScaler,
 				text: textSpan,
 				textAlign: TextAlign.left,
 				textDirection: TextDirection.ltr

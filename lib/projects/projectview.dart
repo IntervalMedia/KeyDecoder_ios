@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart' show MdiIcons;
 import '../utils/utils.dart';
 import 'model/projects.dart';
 
@@ -59,7 +58,7 @@ Widget projectStepper(Project project) {
 				RoundIconContainer(
 					tick: (curStep > 0),
 					color: (curStep > 0) ? _colorDone : (curStep == 0) ? _colorActive : _colorDisable,
-					child: Icon(MdiIcons.keyVariant),
+					child: Icon(Icons.key),
 				),
 				Container(
 					height: 5,

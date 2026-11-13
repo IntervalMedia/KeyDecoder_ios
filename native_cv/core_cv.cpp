@@ -105,7 +105,8 @@ int homography_warp(NativeIntersection points, char *src, char *dst) {
 		if(dst_mat.empty())
 			return -1;
 
-		cv::imwrite(dst, dst_mat);
+		if (!cv::imwrite(dst, dst_mat))
+			return -1;
 	} catch(std::exception& e) {
 		std::cerr << e.what();
 		return -1;
