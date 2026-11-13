@@ -16,10 +16,20 @@ jobs:
           flutter-version: 3.44.7
           channel: stable
           cache: true
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ios/native_cv/Frameworks/opencv2.xcframework
+            ~/Library/Caches/keydecoder/opencv-4.10.0/opencv-4.10.0.tar.gz
+          key: opencv-4.10.0-${{ runner.os }}-${{ hashFiles('ios/scripts/build_opencv_xcframework.sh') }}
+      - name: Build OpenCV XCFramework
+        run: bash ios/scripts/build_opencv_xcframework.sh
       - name: Use CocoaPods integration
         run: flutter config --no-enable-swift-package-manager
       - name: Install dependencies
         run: flutter pub get
+      - name: Build iOS simulator (arm64)
+        run: flutter build ios --simulator --debug --no-codesign
       - name: Build iOS (no codesign)
         run: flutter build ios --release --no-codesign
       - name: Verify native FFI symbols

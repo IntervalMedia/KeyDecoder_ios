@@ -8,13 +8,14 @@ Pod::Spec.new do |s|
   s.source           = { :path => '.' }
   s.source_files     = 'Classes/**/*.{cpp,h}'
   s.platform         = :ios, '15.0'
-  s.dependency 'OpenCV2', '4.3.0'
+  s.vendored_frameworks = 'Frameworks/opencv2.xcframework'
   s.libraries        = 'c++'
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
     'CLANG_CXX_LANGUAGE_STANDARD' => 'c++14',
     'CLANG_CXX_LIBRARY' => 'libc++',
     'OTHER_CPLUSPLUSFLAGS' => '-frtti -fexceptions',
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64',
   }
+  s.frameworks = 'Accelerate', 'AVFoundation', 'CoreGraphics', 'CoreImage',
+                 'CoreMedia', 'CoreVideo', 'Foundation', 'QuartzCore', 'UIKit'
 end

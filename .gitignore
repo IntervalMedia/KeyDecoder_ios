@@ -32,6 +32,7 @@
 /build/
 /android/
 /ios/Flutter/ephemeral/
+/ios/native_cv/Frameworks/
 
 # Web related
 lib/generated_plugin_registrant.dart

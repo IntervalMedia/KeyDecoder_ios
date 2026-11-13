@@ -23,6 +23,9 @@ end
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 flutter_ios_podfile_setup
 
+build_script = File.join(__dir__, 'scripts', 'build_opencv_xcframework.sh')
+raise 'Failed to build OpenCV XCFramework' unless system('bash', build_script)
+
 target 'Runner' do
   use_modular_headers!
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
