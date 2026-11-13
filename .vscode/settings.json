@@ -9,4 +9,5 @@
         "**/.fvm": true
     },
     "dart.sdkPath": ".fvm/flutter_sdk",
+    "cmake.sourceDirectory": "/Users/cashies/Code/keydecoder_ios/KeyDecoder_ios/native_cv",
 }

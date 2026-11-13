@@ -90,7 +90,9 @@ opencv.sdk=<OpenCV Android SDK path>
 
 ### IOS
 
-*IOS is not currently supported*
+* Requires macOS with Xcode and CocoaPods. OpenCV 4.3.0 is pulled in automatically through the `OpenCV` pod and the shared `native_cv/core_cv.cpp` is built by the local `ios/native_cv` pod.
+* Build with `fvm flutter build ios --no-codesign` (or open `ios/Runner.xcworkspace` in Xcode to sign and run on a device). The OpenCV 4.3.0 pod has no Apple-silicon simulator slice, so use a physical device or an x86_64 simulator.
+* CI builds an unsigned release `Runner.app` on every pull request (`.github/workflows/ios.yml`).
 
 ## Releases
 

@@ -18,13 +18,16 @@ typedef struct sNativeIntersection
     Coordinate bottomRight;
 } NativeIntersection;
 
-extern "C"
+// Exported and kept so Dart FFI can resolve them with dlsym (Apple linkers strip unreferenced symbols)
+#define NATIVE_CV_EXPORT extern "C" __attribute__((visibility("default"))) __attribute__((used))
+
+NATIVE_CV_EXPORT
 Coordinate create_coordinate(double x, double y);
 
-extern "C"
+NATIVE_CV_EXPORT
 NativeIntersection create_intersection(Coordinate topLeft, Coordinate topRight, Coordinate bottomLeft, Coordinate bottomRight);
 
-extern "C"
+NATIVE_CV_EXPORT
 int homography_warp(NativeIntersection points, char *src, char *dst);
 
 #define ISOwidth 85.60f

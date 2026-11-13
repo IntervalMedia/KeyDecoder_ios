@@ -243,7 +243,7 @@ class CropPageState extends State<CropPage> {
 					actions: [
 						TextButton(
 							child: Text('Ok'),
-							onPressed: Navigator.of(context)?.pop,
+							onPressed: Navigator.of(context).pop,
 						)
 					],
 				),

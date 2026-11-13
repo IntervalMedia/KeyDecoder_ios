@@ -69,7 +69,7 @@ typedef CreateNativeIntersection = NativeIntersection Function(
 	Coordinate bottomRight
 );
 
-typedef HomogaphyWarpFunctionNative = Int8 Function(
+typedef HomogaphyWarpFunctionNative = Int32 Function(
   	NativeIntersection points, Pointer<Utf8> src, Pointer<Utf8> dst
 );
 typedef HomogaphyWarpFunction = int Function(
@@ -110,7 +110,14 @@ class HomographyWarp {
 
 		NativeIntersection ninter = createNativeIntersectionFromDart(nativeCvLib, points);
 
-		return homographicWarp(ninter, src.toNativeUtf8(), dst.toNativeUtf8());
+		final srcPtr = src.toNativeUtf8();
+		final dstPtr = dst.toNativeUtf8();
+		try {
+			return homographicWarp(ninter, srcPtr, dstPtr);
+		} finally {
+			malloc.free(srcPtr);
+			malloc.free(dstPtr);
+		}
 	}
 
 	static Future<double> croplessWarp(DartIntersection points, String src, String dst, double width, double length) async {
@@ -124,9 +131,10 @@ class HomographyWarp {
 	}
 
 	static DynamicLibrary _getDynamicLibrary() {
-		final DynamicLibrary nativeCvLib = Platform.isAndroid
+		// Android ships libnative_cv.so; on Apple platforms the native_cv pod is
+		// linked into the app, so its symbols live in the process.
+		return Platform.isAndroid
 			? DynamicLibrary.open("libnative_cv.so")
 			: DynamicLibrary.process();
-		return nativeCvLib;
 	}
 }
